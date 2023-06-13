@@ -66,7 +66,6 @@ class Data():
     def getGeosButt(self):
         return self.geosButt
     def down(self):
-        print("im down")
         old  = list(self.geosButt.keys())
         for i in old:
             if  abs(i + 3) < len(self.validList):
@@ -76,7 +75,6 @@ class Data():
                     self.geometrysTaken.remove(self.validList[i])
                     self.geometrysTaken.append(self.validList[i + 3])
     def up(self):
-        print("im up")
         old  = list(self.geosButt.keys())
         for i in old:
             if abs(i - 3) == i - 3:
@@ -86,7 +84,6 @@ class Data():
                     self.geometrysTaken.remove(self.validList[i])
                     self.geometrysTaken.append(self.validList[i - 3])
     def right(self):
-        print("im right")
         old  = list(self.geosButt.keys())
         for i in old:
             if not (i + 1) % 3 == 0:
@@ -99,7 +96,6 @@ class Data():
                     
 
     def left(self):
-        print("im left")
         old  = list(self.geosButt.keys())
         for i in old:
             if not (i) % 3 == 0:

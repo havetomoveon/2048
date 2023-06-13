@@ -18,9 +18,7 @@ class mouseTracker(QObject):
             if self.rt.mouseButtons() == QApplication.mouseButtons().NoButton:
                 self.sig.emit()
                 break
-            sleep(0.1)
-            #print("im in")
-            
+            sleep(0.1)            
 
 class moveButtons(QObject):
     sig = Signal(QEvent)
@@ -35,8 +33,6 @@ class moveButtons(QObject):
         self.validnumdown = 0
         self.mouseEventPositions = []
         self.data = data
-
-
     def eventFilter(self,o:QPushButton,e:QEvent):
         if self.status and e.type() == e.Type.MouseMove:
             mouse = QMouseEvent(e).position()
@@ -49,12 +45,6 @@ class moveButtons(QObject):
                 w = self.mouseEventPositions[-1][0] - self.mouseEventPositions[-59][0] 
                 r = self.mouseEventPositions[-1][1] - self.mouseEventPositions[-59][1]
                 
-                #q:QPushButton = self.butt[self.wichbutt]
-                #self.mouseEventPositions = []
-
-               # buttGeoWidth = q.geometry().width()
-                #buttGeoHeight = q.geometry().height()
-               # buttGeoXY = self.validList.index((q.geometry().x(),q.geometry().y(),buttGeoWidth,buttGeoHeight))
                 g = [self.validnumright,
                     self.validnumleft,
                     self.validnumup,
@@ -98,10 +88,7 @@ class moveButtons(QObject):
                     else:
                         self.validnumdown += 1
                         return
-                
-                    
-            #print(self.mouseEventPositions)
-            #self.butt[self.wichbutt].setGeometry(10,10,20,50)
+        
             
                 
         if e.type() == e.Type.MouseButtonPress:
@@ -110,8 +97,6 @@ class moveButtons(QObject):
             #if o.windowType() == QFrame:
                 #return
             print(o)
-            #self.wichbutt = int(o.objectName())
-            #position = QMouseEvent(e)
             self.sig.emit(e)
             self.status = True
 
@@ -141,15 +126,8 @@ class ui():
         self.buttList = []
         self.data.validGeometry(sizeWidth,sizeHeight)  
         self.data.buttGeos()
-
         self.tableframe.setGeometry(x ,y ,sizeWidth,sizeHeight)
         self.tableframe.setStyleSheet("border: 2px solid gray;border-radius:25px")
-
-        #self.data.validDirectories()
-        #self.data.right()
-        #print(self.data.validDirectories)
-        #print(self.data.validDiretions)
-            #self.buttList.append(but)
         for i in self.data.validList:
             j = QPushButton(self.tableframe)
             j.setGeometry(QRect(i[0],i[1],i[2],i[3]))
@@ -158,15 +136,11 @@ class ui():
         self.setButtons()
 
     def setButtons(self):
-        print("im in")
         for i in self.nodeButtons:
-            #for i in range(5 , )
             i.hide()
-        print(self.data.geosButt)
         for d in self.data.getGeosButt():
             b = self.data.getGeosButt().get(d)
             but = self.nodeButtons[d]
-            #but.setObjectName(str(b))
             but.setText(str(b[1]))
             but.setGeometry(QRect(b[0][0],b[0][1],b[0][2],b[0][3]))
             but.setStyleSheet("color: gray;font-size: 35px")
