@@ -2,6 +2,7 @@ import numpy as np
 import random
 class Data():
     def __init__(self):
+        self.gameType = 5
         self.validList = []
         #self.validDirectories = []
         self.validDiretions = []
@@ -31,10 +32,10 @@ class Data():
     def validGeometry(self,width,height):
         x,y,buttWidth,buttHeight = 10,10,0,0
         x_num = 0
-        buttWidth = (width - 30) / 3
-        buttHeight = (height - 30) / 3
-        for i in range(9):
-            if x_num % 3 == 0 and x_num != 0:
+        buttWidth = (width - 30) / self.gameType
+        buttHeight = (height - 30) / self.gameType
+        for i in range(self.gameType * self.gameType):
+            if x_num % self.gameType == 0 and x_num != 0:
                 x = 10
                 y += (buttHeight + 5)
             self.validList.append((x,y,buttWidth,buttHeight))
@@ -57,23 +58,23 @@ class Data():
     def down(self):
         old  = list(self.geosButt.keys())
         for i in reversed(old):
-            if  abs(i + 3) < len(self.validList):
-                if not self.validList[i + 3] in self.geometrysTaken:
-                    self.changeButtonPosition(i, 3)
+            if  abs(i + self.gameType) < len(self.validList):
+                if not self.validList[i + self.gameType] in self.geometrysTaken:
+                    self.changeButtonPosition(i, self.gameType)
                 else:
-                    self.changeButtonPositionEqual(i, 3)
+                    self.changeButtonPositionEqual(i, self.gameType)
     def up(self):
         old  = list(self.geosButt.keys())
         for i in reversed(old):
-            if abs(i - 3) == i - 3:
-                if not self.validList[i - 3] in self.geometrysTaken:
-                   self.changeButtonPosition(i, -3)
+            if abs(i - self.gameType) == i - self.gameType:
+                if not self.validList[i - self.gameType] in self.geometrysTaken:
+                   self.changeButtonPosition(i, -self.gameType)
                 else:
-                    self.changeButtonPositionEqual(i, -3)
+                    self.changeButtonPositionEqual(i, -self.gameType)
     def right(self):
         old  = list(self.geosButt.keys())
         for i in reversed(old):
-            if not (i + 1) % 3 == 0:
+            if not (i + 1) % self.gameType == 0:
                 if abs(i + 1) < len(self.validList):
                     if not self.validList[i + 1] in self.geometrysTaken:
                         self.changeButtonPosition(i, 1)
@@ -82,7 +83,7 @@ class Data():
     def left(self):
         old  = list(self.geosButt.keys())
         for i in reversed(old):
-            if not (i) % 3 == 0:
+            if not (i) % self.gameType == 0:
                 if abs(i - 1) == i - 1:
                     if not self.validList[i - 1] in self.geometrysTaken:
                         self.changeButtonPosition(i, -1)
